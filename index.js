@@ -3,9 +3,11 @@ window.addEventListener("DOMContentLoaded",(e)=>{
     // alert("DOM loaded")
     let category = document.getElementById("cat")
     let random = document.getElementById("random")
-    console.log(random)
+    // console.log(random)
     let mealTitle = document.createElement("h1")
+    random.appendChild(mealTitle)
     let img = document.createElement("img")
+    random.appendChild(img)
     let ul = document.createElement("ul")
     
     fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
@@ -56,16 +58,37 @@ window.addEventListener("DOMContentLoaded",(e)=>{
     fetch("https://www.themealdb.com/api/json/v1/1/random.php")
     .then(response => response.json())
     .then(data =>{
-        // let meal = data
-        // console.log(data.meals[0].strMeal)
+        
         let meal = data.meals[0].strMeal
         mealTitle.innerText = meal
-        random.appendChild(mealTitle)
         img.src = data.meals[0].strMealThumb
         img.style.height = "400px"
         img.style.width = "600px"
         img.style.border = "2px solid black"
-        random.appendChild(img)
+        let div = document.createElement("div")
+        random.appendChild(div)
+        let howToPrepare = document.createElement("button")
+        howToPrepare.innerText = "How To Prepare"
+        div.appendChild(howToPrepare)
+        let generateNewMeal = document.createElement("button")
+        generateNewMeal.innerText = "Generate New Meal"
+        div.appendChild(generateNewMeal)
+        generateNewMeal.addEventListener("click",(e)=>{
+            fetch("https://www.themealdb.com/api/json/v1/1/random.php")
+            .then(response => response.json())
+            .then(data =>{
+        
+                
+                let meal = data.meals[0].strMeal
+                mealTitle.innerText = meal
+                img.src = data.meals[0].strMealThumb
+                img.style.height = "400px"
+                img.style.width = "600px"
+                img.style.border = "2px solid black"
+
+            })
+        })
+
 
     })
 
