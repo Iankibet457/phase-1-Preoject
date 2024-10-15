@@ -1,8 +1,10 @@
 window.addEventListener("DOMContentLoaded",(e)=>{
     // console.log("hi am js")
     // alert("DOM loaded")
-    let category = document.getElementById("ol")
-    console.log(category)
+    let category = document.getElementById("cat")
+    let random = document.getElementById("random")
+    console.log(random)
+    
     fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
     .then(response => response.json())
     .then(data => {
@@ -23,7 +25,25 @@ window.addEventListener("DOMContentLoaded",(e)=>{
             })
         }
         
-    }
+    },
+    
+    fetch("https://www.themealdb.com/api/json/v1/1/random.php")
+    .then(response => response.json())
+    .then(data =>{
+        // let meal = data
+        // console.log(data.meals[0].strMeal)
+        let meal = data.meals[0].strMeal
+        let mealTitle = document.createElement("h1")
+        mealTitle.innerText = meal
+        random.appendChild(mealTitle)
+        let img = document.createElement("img")
+        img.src = data.meals[0].strMealThumb
+        img.style.height = "400px"
+        img.style.width = "600px"
+        random.appendChild(img)
+
+    })
+
 );
     
 })
