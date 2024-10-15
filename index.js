@@ -4,6 +4,9 @@ window.addEventListener("DOMContentLoaded",(e)=>{
     let category = document.getElementById("cat")
     let random = document.getElementById("random")
     console.log(random)
+    let mealTitle = document.createElement("h1")
+    let img = document.createElement("img")
+    let ul = document.createElement("ul")
     
     fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
     .then(response => response.json())
@@ -21,7 +24,30 @@ window.addEventListener("DOMContentLoaded",(e)=>{
                 meal.style.color = "black"
             })
             meal.addEventListener("click",(e)=>{
-                alert(`clicked ${type.strCategory}`)
+                // alert(`clicked ${type.strCategory}`)
+                
+                fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${type.strCategory}`)
+                .then(response => response.json())
+                .then(catData =>{
+                    ul.replaceChildren()
+                    let h1 = document.getElementById("sTitle")
+                    h1.innerText = type.strCategory
+                    let div = document.getElementById("search")
+                    div.appendChild(ul)
+                    // console.log(catData.meals.strMeal)
+                    for (let name of catData.meals){
+                            let li = document.createElement("li")
+                            li.innerText = name.strMeal
+                            ul.appendChild(li)
+                        
+                        // console.log(name.strMeal)
+                        
+                    }
+                    
+                    
+                    
+                    
+                })
             })
         }
         
@@ -33,13 +59,12 @@ window.addEventListener("DOMContentLoaded",(e)=>{
         // let meal = data
         // console.log(data.meals[0].strMeal)
         let meal = data.meals[0].strMeal
-        let mealTitle = document.createElement("h1")
         mealTitle.innerText = meal
         random.appendChild(mealTitle)
-        let img = document.createElement("img")
         img.src = data.meals[0].strMealThumb
         img.style.height = "400px"
         img.style.width = "600px"
+        img.style.border = "2px solid black"
         random.appendChild(img)
 
     })
