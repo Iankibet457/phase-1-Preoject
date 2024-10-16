@@ -10,6 +10,34 @@ window.addEventListener("DOMContentLoaded",(e)=>{
     random.appendChild(img)
     let ul = document.createElement("ul")
     let ingredients = document.createElement("ul")
+    let prepareDiv = document.createElement("div")
+    prepareDiv.appendChild(ingredients)
+    let instruction = document.createElement("p")
+    prepareDiv.appendChild(instruction)
+    let form = document.getElementById("form")
+        
+        form.addEventListener("submit",(e)=>{
+            e.preventDefault()
+            let value = document.getElementById("input").value
+            fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${value}`)
+            .then(response =>response.json())
+            .then(data =>{
+                    // console.log(data.meals[0])
+                    // console.log(value)
+                    if(value == data.meals[0].strMeal ){
+                        mealTitle.innerText = data.meals[0].strMeal
+                        img.src = data.meals[0].strMealThumb
+                        instruction.innerText = data.meals[0].strInstructions
+                        console.log(data.meals[0].strInstructions)
+                        
+                    }else{
+                        alert("Please Try Another Meal")
+                    }
+                })
+
+
+        })
+
     
     fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
     .then(response => response.json())
@@ -99,7 +127,6 @@ window.addEventListener("DOMContentLoaded",(e)=>{
 
             })
         })
-        let prepareDiv = document.createElement("div")
         prepareDiv.id = "prepare"
         prepareDiv.style.border = "2px solid red"
         prepareDiv.style.height = "400px"
@@ -112,14 +139,13 @@ window.addEventListener("DOMContentLoaded",(e)=>{
             let h1 = document.createElement("h1")
             h1.innerText = "Ingredients"
             prepareDiv.appendChild(h1)
-            prepareDiv.appendChild(ingredients)
             let item1 = document.createElement("li")
             let item2 = document.createElement("li")
             let item3 = document.createElement("li")
             let item4 = document.createElement("li")
             let item5 = document.createElement("li")
             let item6 = document.createElement("li")
-           
+            
             item1.innerText = data.meals[0].strIngredient1
             ingredients.appendChild(item1)
             item2.innerText = data.meals[0].strIngredient2
@@ -132,33 +158,37 @@ window.addEventListener("DOMContentLoaded",(e)=>{
             ingredients.appendChild(item5)
             item6.innerText = data.meals[0].strIngredient6
             ingredients.appendChild(item6)
-            let instruction = document.createElement("p")
             instruction.innerText = data.meals[0].strInstructions
-            prepareDiv.appendChild(instruction)
 
             
 
-
+            
             
         })
-
+        
 
     }),
-    fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata")
-    .then(response =>response.json())
-    .then(data =>{
-        console.log(data.meals[0].strMeal)
-        let form = document.getElementById("form")
+    
+    // fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${value}`)
+    // .then(response =>response.json())
+    // .then(data =>{
+    //     console.log(data.meals[0].strMeal)
+    //     let form = document.getElementById("form")
         
-        form.addEventListener("submit",(e)=>{
-            e.preventDefault()
-            let value = document.getElementById("input").value
-            if(value == data.meals[0].strMeal ){
-                mealTitle.innerText = data.meals[0].strMeal
-                img.src = data.meals[0].strMealThumb
-            }
-        })
-    })
+    //     form.addEventListener("submit",(e)=>{
+    //         e.preventDefault()
+    //         let value = document.getElementById("input").value
+
+    //         if(value == data.meals[0].strMeal ){
+    //             mealTitle.innerText = data.meals[0].strMeal
+    //             img.src = data.meals[0].strMealThumb
+    //         }else{
+    //             alert("Please Try Another Meal")
+    //         }
+    //     })
+    // })
+    
+    
 
 );
     
