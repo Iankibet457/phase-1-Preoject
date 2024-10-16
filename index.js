@@ -9,6 +9,7 @@ window.addEventListener("DOMContentLoaded",(e)=>{
     let img = document.createElement("img")
     random.appendChild(img)
     let ul = document.createElement("ul")
+    let ingredients = document.createElement("ul")
     
     fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
     .then(response => response.json())
@@ -42,7 +43,17 @@ window.addEventListener("DOMContentLoaded",(e)=>{
                             li.innerText = name.strMeal
                             ul.appendChild(li)
                         
-                        // console.log(name.strMeal)
+                        li.addEventListener("click",(e)=>{
+                            // alert(`clicked ${name.strMeal}`)
+                            mealTitle.innerText = name.strMeal
+                            img.src = name.strMealThumb
+                        })
+                        li.addEventListener("mouseover",(e)=>{
+                            li.style.color = "blue"
+                        })
+                        li.addEventListener("mouseout",(e)=>{
+                            li.style.color = "black"
+                        })
                         
                     }
                     
@@ -88,8 +99,65 @@ window.addEventListener("DOMContentLoaded",(e)=>{
 
             })
         })
+        let prepareDiv = document.createElement("div")
+        prepareDiv.id = "prepare"
+        prepareDiv.style.border = "2px solid red"
+        prepareDiv.style.height = "400px"
+        random.appendChild(prepareDiv)
+        
+        
+        howToPrepare.addEventListener("click",(e)=>{
+            prepareDiv.replaceChildren()
+            // alert("clicked")
+            let h1 = document.createElement("h1")
+            h1.innerText = "Ingredients"
+            prepareDiv.appendChild(h1)
+            prepareDiv.appendChild(ingredients)
+            let item1 = document.createElement("li")
+            let item2 = document.createElement("li")
+            let item3 = document.createElement("li")
+            let item4 = document.createElement("li")
+            let item5 = document.createElement("li")
+            let item6 = document.createElement("li")
+           
+            item1.innerText = data.meals[0].strIngredient1
+            ingredients.appendChild(item1)
+            item2.innerText = data.meals[0].strIngredient2
+            ingredients.appendChild(item2)
+            item3.innerText = data.meals[0].strIngredient3
+            ingredients.appendChild(item3)
+            item4.innerText = data.meals[0].strIngredient4
+            ingredients.appendChild(item4)
+            item5.innerText = data.meals[0].strIngredient5
+            ingredients.appendChild(item5)
+            item6.innerText = data.meals[0].strIngredient6
+            ingredients.appendChild(item6)
+            let instruction = document.createElement("p")
+            instruction.innerText = data.meals[0].strInstructions
+            prepareDiv.appendChild(instruction)
+
+            
 
 
+            
+        })
+
+
+    }),
+    fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata")
+    .then(response =>response.json())
+    .then(data =>{
+        console.log(data.meals[0].strMeal)
+        let form = document.getElementById("form")
+        
+        form.addEventListener("submit",(e)=>{
+            e.preventDefault()
+            let value = document.getElementById("input").value
+            if(value == data.meals[0].strMeal ){
+                mealTitle.innerText = data.meals[0].strMeal
+                img.src = data.meals[0].strMealThumb
+            }
+        })
     })
 
 );
