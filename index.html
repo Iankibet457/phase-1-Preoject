@@ -3,44 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./index.css">
-    <script src="./index.js"></script>
-
-    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="./index.js" defer></script>
+    <title>Meal Search</title>
 </head>
-<body>
-    <div id="title">
-        <div id="image">
-            <img id="logo" src="./src/food logo.jpg" alt="logo">
-        </div>
-        <div id="form">
-            <form action="">
-                <!-- <label for="meal"></label> -->
-                <input type="text" id="input" placeholder="Search Meal" size="80">
-                <input type="submit" value="Search">
-            </form>
-        </div>
-        
-    </div>
-    <div id="main">
-        <div id="categories">
-            <h1>Categories</h1>
-            <ol id="cat">
+<body class="bg-gray-100">
 
-            </ol>
+    <!-- Header Section -->
+    <header class="bg-white shadow-md">
+        <div class="max-w-4xl mx-auto flex items-center justify-between p-4">
+            <div id="image" class="flex-shrink-0">
+                <img id="logo" src="./src/food logo.jpg" alt="logo" class="h-12">
+            </div>
+            <div id="form" class="flex-grow ml-4">
+                <form action="" class="flex">
+                    <input type="text" id="input" placeholder="Search Meal" class="flex-grow p-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    <button type="submit" class="bg-blue-500 text-white rounded-r-md px-4 hover:bg-blue-600 transition">
+                        Search
+                    </button>
+                </form>
+            </div>
         </div>
-        <div id="random">
-            <!-- <h1>Random Meal</h1> -->
-            
-        </div>
-        <div id="search">
-            <h1 id="sTitle"></h1>
-            
-        </div>
+    </header>
 
-        <div>
-            
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto p-6">
+        <div id="main" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div id="categories" class="bg-white p-4 rounded-lg shadow">
+                <h1 class="text-xl font-semibold mb-4">Categories</h1>
+                <ol id="cat" class="list-decimal pl-5">
+                    <!-- Category items will be added here -->
+                </ol>
+            </div>
 
-    
+            <div id="random" class="bg-white p-4 rounded-lg shadow">
+                <h1 class="text-xl font-semibold mb-4">Random Meal</h1>
+                <!-- Random meal content will be displayed here -->
+            </div>
+
+            <div id="search" class="bg-white p-4 rounded-lg shadow">
+                <h1 class="text-xl font-semibold mb-4" id="sTitle">Search Results</h1>
+                <!-- Search results will be displayed here -->
+            </div>
+        </div>
+    </main>
+
 </body>
 </html>
