@@ -91,6 +91,9 @@ window.addEventListener("DOMContentLoaded", (e) => {
             howToPrepare.classList.add("bg-blue-500", "text-white", "px-4", "py-2", "rounded-md", "hover:bg-blue-600", "transition");
             div.appendChild(howToPrepare);
             
+            // Add margin to create space
+            howToPrepare.style.marginRight = "10px"; // Adjust the value as needed
+
             let generateNewMeal = document.createElement("button");
             generateNewMeal.innerText = "Generate New Meal";
             generateNewMeal.classList.add("bg-green-500", "text-white", "px-4", "py-2", "rounded-md", "hover:bg-green-600", "transition");
@@ -107,7 +110,6 @@ window.addEventListener("DOMContentLoaded", (e) => {
             });
 
             prepareDiv.id = "prepare";
-            // prepareDiv.style.border = "2px solid red";
             prepareDiv.style.height = "auto"; // Adjust height to auto for responsiveness
             
             howToPrepare.addEventListener("click", (e) => {
